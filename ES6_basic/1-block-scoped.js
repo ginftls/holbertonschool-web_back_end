@@ -1,10 +1,10 @@
 export default function taskBlock(trueOrFalse) {
-  let task = false; // Use 'let' for block-scoping
-  let task2 = true; // Use 'let' for block-scoping
+  const task = false; 
+  const task2 = true; 
 
   if (trueOrFalse) {
-    let task = true; // Declare a new block-scoped variable
-    let task2 = false; // Declare a new block-scoped variable
+    const task = true; 
+    const task2 = false; 
   }
 
   return [task, task2];
