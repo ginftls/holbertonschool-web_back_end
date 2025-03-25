@@ -1,7 +1,5 @@
-// 0-constants.js
-
 export function taskFirst() {
-  const task = 'I prefer const when I can.'; // Use `const` because the value of `task` does not change.
+  const task = 'I prefer const when I can.';
   return task;
 }
 
@@ -10,8 +8,7 @@ export function getLast() {
 }
 
 export function taskNext() {
-  let combination = 'But sometimes let'; // Use `let` because the value of `combination` will be reassigned.
-  combination += getLast(); // Reassigning the value of `combination`.
-
+  let combination = 'But sometimes let';
+  combination += getLast();
   return combination;
 }
