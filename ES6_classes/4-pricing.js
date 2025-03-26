@@ -1,4 +1,6 @@
+/* eslint-disable no-unused-vars */
 import Currency from './3-currency.js';
+/* eslint-enable no-unused-vars */
 
 export default class Pricing {
   // Constructor to initialize the attributes
