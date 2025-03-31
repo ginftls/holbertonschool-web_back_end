@@ -1,15 +1,20 @@
 /*eslint-disable */
 import { uploadPhoto, createUser } from './utils.js';
 
-export default function handleProfileSignup() {
-  // Use Promise.all to resolve both promises
-  Promise.all([uploadPhoto(), createUser()])
-    .then(([photoResponse, userResponse]) => {
-      // Log the result to the console
+function handleProfileSignup() {
+  // Using Promise.all to collectively resolve all promises
+  return Promise.all([uploadPhoto(), createUser()])
+    .then((values) => {
+      // Destructure the resolved values from the promises
+      const [photoResponse, userResponse] = values;
+      
+      // Log the required information
       console.log(`${photoResponse.body} ${userResponse.firstName} ${userResponse.lastName}`);
     })
     .catch(() => {
-      // Log an error message in case of failure
+      // Handle any errors by logging the required message
       console.log('Signup system offline');
     });
 }
+
+export default handleProfileSignup;
