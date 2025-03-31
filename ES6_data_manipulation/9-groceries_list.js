@@ -1,6 +1,6 @@
 /*eslint-disable */
 export default function groceriesList() {
-  const groceries = new Map();
+   const groceries = new Map();
 
     groceries.set('Apples', 10);
     groceries.set('Tomatoes', 10);
@@ -8,5 +8,5 @@ export default function groceriesList() {
     groceries.set('Rice', 1);
     groceries.set('Bananas', 5);
 
-  return groceries;
-  }
+   return groceries;
+}
