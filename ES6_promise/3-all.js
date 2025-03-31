@@ -1,5 +1,6 @@
 /*eslint-disable */
 import { uploadPhoto, createUser } from './utils.js';
+export default handleProfileSignup;
 
 function handleProfileSignup() {
   // Using Promise.all to collectively resolve all promises
@@ -17,4 +18,4 @@ function handleProfileSignup() {
     });
 }
 
-export default handleProfileSignup;
+
