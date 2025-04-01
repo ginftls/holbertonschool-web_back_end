@@ -1,13 +1,23 @@
 /* eslint-disable */
-import { uploadPhoto, createUser } from './utils.js';
+import signUpUser from './4-user-promise.js';
+import uploadPhoto from './5-photo-reject.js';
 
-export default function handleProfileSignup() {
- return Promise.all([uploadPhoto(), createUser()])
-    .then((array) => {
-      const [photo, user] = array;
-      console.log(`${photo.body} ${user.firstName} ${user.lastName}`);
-    })
-    .catch(() => {
-      console.log('Signup system offline');
+export default function handleProfileSignup(firstName, lastName, fileName) {
+  return Promise.allSettled([signUpUser(firstName, lastName), uploadPhoto(fileName)])
+    .then((results) => {
+      return results.map((result) => {
+        if (result.status === 'fulfilled') {
+          return {
+            status: 'fulfilled',
+            value: result.value,
+          };
+        } else {
+          // Extract only the error message for rejected promises
+          return {
+            status: 'rejected',
+            value: result.reason.message,
+          };
+        }
+      });
     });
 }
