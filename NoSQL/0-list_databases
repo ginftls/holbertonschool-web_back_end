@@ -1,0 +1,22 @@
+#!/usr/bin/env python3
+"""
+Lists all MongoDB databases along with their sizes.
+"""
+
+from pymongo import MongoClient
+
+
+def list_databases():
+    """Retrieve and print all databases in MongoDB with their sizes."""
+    client = MongoClient('mongodb://localhost:27017/')
+    databases = client.list_databases()
+    sorted_dbs = sorted(databases, key=lambda db: db['name'])
+
+    for db in sorted_dbs:
+        name = db['name']
+        size_gb = db['sizeOnDisk'] / (1024 ** 3)
+        print(f"{name:12} {size_gb:.3f}GB")
+
+
+if __name__ == "__main__":
+    list_databases()

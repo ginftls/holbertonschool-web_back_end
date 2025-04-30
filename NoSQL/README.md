@@ -1,0 +1,1 @@
+NoSQL databases are a type of database that do not use a relational model to store data. Instead, they use a non-relational model, such as key-value pairs or document-oriented models, to store data. NoSQL databases are designed to handle large amounts of data and are often used for applications that require high scalability and performance.
