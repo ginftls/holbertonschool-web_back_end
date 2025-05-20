@@ -1,52 +1,27 @@
-/**
- * Reads a CSV file synchronously and counts students by field
- * @param {string} path - Path to the CSV file
- */
-const fs = require('fs');
+const fs = require('node:fs');
 
 function countStudents(path) {
   try {
-    // Read the file synchronously
     const data = fs.readFileSync(path, 'utf8');
-    
-    // Split the data into lines and filter out empty lines
-    const lines = data.split('\n').filter((line) => line.trim() !== '');
-    
-    // Remove the header (first line)
-    const studentLines = lines.slice(1);
-    
-    // Log the total number of students
-    console.log(`Number of students: ${studentLines.length}`);
-    
-    // Create a map to store students by field
-    const studentsByField = {};
-    
-    // Process each student line
-    studentLines.forEach((line) => {
-      const fields = line.split(',');
-      const field = fields[3]; // The field is the 4th column
-      const firstName = fields[0]; // The firstName is the 1st column
-      
-      // Initialize the field in the map if it doesn't exist
-      if (!studentsByField[field]) {
-        studentsByField[field] = [];
+    const rows = data.trim().split('\n').slice(1);
+    const fields = {};
+
+    rows.forEach((row) => {
+      const columns = row.split(',');
+      const [firstname, , , field] = columns;
+      if (!fields[field]) {
+        fields[field] = [];
       }
-      
-      // Add the student's first name to the appropriate field
-      studentsByField[field].push(firstName);
+      fields[field].push(firstname);
     });
-    
-    // Log the number of students in each field and the list of first names
-    Object.keys(studentsByField).forEach((field) => {
-      const students = studentsByField[field];
+
+    console.log(`Number of students: ${rows.length}`);
+    for (const [field, students] of Object.entries(fields)) {
       console.log(`Number of students in ${field}: ${students.length}. List: ${students.join(', ')}`);
-    });
-  } catch (error) {
+    }
+  } catch (err) {
     throw new Error('Cannot load the database');
   }
 }
-
-module.exports = countStudents;
-
 
 module.exports = countStudents;
