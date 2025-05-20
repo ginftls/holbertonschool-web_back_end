@@ -25,3 +25,6 @@ process.stdin.on('end', () => {
   process.stdout.write('This important software is now closing\n');
   process.exit();
 });
+
+// Export an empty object to satisfy the module.exports requirement
+module.exports = {};
