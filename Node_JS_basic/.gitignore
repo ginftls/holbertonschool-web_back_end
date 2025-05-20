@@ -6,3 +6,4 @@ package-lock.json
 package.json
 *main*.js
 database.csv
+eslint.config.mjs
