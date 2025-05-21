@@ -4,7 +4,7 @@ export function readDatabase(path) {
   return fs.readFile(path, 'utf8')
     .then((data) => {
       const lines = data.split('\n').filter((line) => line.trim() !== '');
-      const students = lines.slice(1); // Skip header
+      const students = lines.slice(1);
       const fields = {};
 
       students.forEach((line) => {
