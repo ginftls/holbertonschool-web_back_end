@@ -3,14 +3,17 @@ import { readDatabase } from '../utils';
 export default class StudentsController {
   static async getAllStudents(req, res) {
     try {
-      const database = process.argv[2];
-      if (!database) throw new Error('Cannot load the database');
-
-      const fields = await readDatabase(database);
+      const databasePath = req.app.locals.databasePath;
+      const fields = await readDatabase(databasePath);
       let response = 'This is the list of our students\n';
 
+      // Calculate total students
+      const total = Object.values(fields).reduce((acc, curr) => acc + curr.length, 0);
+      response += `Number of students: ${total}\n`;
+
+      // Append each field's student count and list
       Object.keys(fields)
-        .sort((a, b) => a.localeCompare(b, undefined, { sensitivity: 'base' }))
+        .sort((a, b) => a.localeCompare(b, 'en', { sensitivity: 'base' }))
         .forEach((field) => {
           response += `Number of students in ${field}: ${fields[field].length}. List: ${fields[field].join(', ')}\n`;
         });
@@ -29,10 +32,8 @@ export default class StudentsController {
         return;
       }
 
-      const database = process.argv[2];
-      if (!database) throw new Error('Cannot load the database');
-
-      const fields = await readDatabase(database);
+      const databasePath = req.app.locals.databasePath;
+      const fields = await readDatabase(databasePath);
       const students = fields[major] || [];
       res.status(200).send(`List: ${students.join(', ')}`);
     } catch (error) {
